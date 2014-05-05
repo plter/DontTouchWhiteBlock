@@ -25,8 +25,10 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		310567371915F432004DE6E8 /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 310567351915F432004DE6E8 /* Card.cpp */; };
-		310567381915F432004DE6E8 /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 310567351915F432004DE6E8 /* Card.cpp */; };
+		31DD5E0E1917302F005FC0EF /* Block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31DD5E0C1917302F005FC0EF /* Block.cpp */; };
+		31DD5E0F1917302F005FC0EF /* Block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31DD5E0C1917302F005FC0EF /* Block.cpp */; };
+		31DD5E121917389D005FC0EF /* EndLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31DD5E101917389D005FC0EF /* EndLine.cpp */; };
+		31DD5E131917389D005FC0EF /* EndLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31DD5E101917389D005FC0EF /* EndLine.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -230,8 +232,10 @@
 		1D6058910D05DD3D006BFB54 /* WhiteBlockPublish iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhiteBlockPublish iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		310567351915F432004DE6E8 /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Card.cpp; path = ../Classes/Card.cpp; sourceTree = "<group>"; };
-		310567361915F432004DE6E8 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Card.h; path = ../Classes/Card.h; sourceTree = "<group>"; };
+		31DD5E0C1917302F005FC0EF /* Block.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Block.cpp; path = ../Classes/Block.cpp; sourceTree = "<group>"; };
+		31DD5E0D1917302F005FC0EF /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Block.h; path = ../Classes/Block.h; sourceTree = "<group>"; };
+		31DD5E101917389D005FC0EF /* EndLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EndLine.cpp; path = ../Classes/EndLine.cpp; sourceTree = "<group>"; };
+		31DD5E111917389D005FC0EF /* EndLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EndLine.h; path = ../Classes/EndLine.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -340,12 +344,14 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				310567351915F432004DE6E8 /* Card.cpp */,
-				310567361915F432004DE6E8 /* Card.h */,
+				31DD5E0C1917302F005FC0EF /* Block.cpp */,
+				31DD5E0D1917302F005FC0EF /* Block.h */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
+				31DD5E101917389D005FC0EF /* EndLine.cpp */,
+				31DD5E111917389D005FC0EF /* EndLine.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -676,9 +682,10 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
-				310567371915F432004DE6E8 /* Card.cpp in Sources */,
+				31DD5E0E1917302F005FC0EF /* Block.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
+				31DD5E121917389D005FC0EF /* EndLine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,10 +693,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31DD5E131917389D005FC0EF /* EndLine.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
+				31DD5E0F1917302F005FC0EF /* Block.cpp in Sources */,
 				5087E75817EB910900C73F5D /* HelloWorldScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				310567381915F432004DE6E8 /* Card.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

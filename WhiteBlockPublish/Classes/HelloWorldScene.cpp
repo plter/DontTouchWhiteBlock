@@ -27,29 +27,48 @@ bool HelloWorld::init()
         return false;
     }
     
-    //    scheduleUpdate();
+    srand(time(NULL));
     
     visibleSize = Director::getInstance()->getVisibleSize();
+    
+    gameLayer = Node::create();
+    addChild(gameLayer);
+    
+    timerLabel = Label::create();
+    timerLabel->setTextColor(Color4B::BLUE);
+    timerLabel->setSystemFontSize(48);
+    timerLabel->setPosition(visibleSize.width/2, visibleSize.height-100);
+    addChild(timerLabel);
+    
     
     startGame();
     
     auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = [this](Touch* t,Event *e){
+    listener->onTouchBegan = [this](Touch* t,Event* e){
         
-        Card *c;
+        auto bs = Block::getBlocks();
+        Block *b;
         
-        for (auto it = Card::getCards()->begin(); it!=Card::getCards()->end(); it++) {
-            c = *it;
-            if (c->getLineIndex()==1&&
-                c->getBoundingBox().containsPoint(t->getLocation())) {
+        for (auto it = bs->begin(); it!=bs->end(); it++) {
+            
+            b = *it;
+            
+            if (b->getLineIndex()==1&&
+                b->getBoundingBox().containsPoint(t->getLocation())) {
                 
-                if (c->getColor()==Color3B(0, 0, 0)) {
-                    c->setColor(Color3B::GRAY);
+                if (b->getColor()==Color3B::BLACK) {
+                    if (!timerRunning) {
+                        this->startTimer();
+                    }
+                    
+                    b->setColor(Color3B::GRAY);
                     this->moveDown();
-                }else if(c->getColor()==Color3B::GREEN){
+                }else if(b->getColor()==Color3B::GREEN){
                     this->moveDown();
+                    this->stopTimer();
                 }else{
-                    MessageBox("失败", "游戏结束");
+                    MessageBox("你点错了", "点错了");
+                    b->setColor(Color3B::RED);
                 }
                 
                 break;
@@ -60,13 +79,20 @@ bool HelloWorld::init()
     };
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     
-    //    addEndLine();
     return true;
 }
 
 void HelloWorld::startGame(){
+    //init
+    stopTimer();
     linesCount = 0;
     showEnd = false;
+    timerRunning = false;
+    currentEndLine = NULL;
+    timerLabel->setString("0.000000");
+    
+    //try to clear
+    Block::removeAllBlocks();
     
     addStartLine();
     addNormalLine(1);
@@ -74,29 +100,36 @@ void HelloWorld::startGame(){
     addNormalLine(3);
 }
 
-void HelloWorld::addEndLine(){
-    auto c = Card::createWithArgs(Size(visibleSize.width, visibleSize.height), Color3B(0, 255, 0), "Game Over" ,30);
-    addChild(c);
-    c->setLineIndex(4);
-}
 
 void HelloWorld::addStartLine(){
-    
-    auto c = Card::createWithArgs(Size(visibleSize.width,visibleSize.height/4), Color3B(255, 255, 0), "" ,28);
-    c->setLineIndex(0);
-    addChild(c);
+    auto b = Block::createWithArgs(Color3B::YELLOW, Size(visibleSize.width, visibleSize.height/4), "", 20, Color4B::BLACK);
+    gameLayer->addChild(b);
+    b->setLineIndex(0);
 }
+
+
+void HelloWorld::addEndLine(){
+    
+    auto b = EndLine::createWithContext(this);
+    b->setLineIndex(4);
+    b->setPositionY(b->getLineIndex()*visibleSize.height/4);
+    gameLayer->addChild(b);
+    
+    currentEndLine = b;
+}
+
 
 void HelloWorld::addNormalLine(int lineIndex){
     
+    Block *b;
     int blackIndex = rand()%4;
-    Card *c;
     
     for (int i=0; i<4; i++) {
-        c = Card::createWithArgs(Size(visibleSize.width/4-1, visibleSize.height/4-1), i==blackIndex?Color3B(0, 0, 0):Color3B(255, 255, 255), "", 28);
-        c->setPosition(i*visibleSize.width/4, lineIndex*visibleSize.height/4);
-        c->setLineIndex(lineIndex);
-        addChild(c);
+        b = Block::createWithArgs(blackIndex==i?Color3B::BLACK:Color3B::WHITE,Size(visibleSize.width/4-1, visibleSize.height/4-1),"",20,Color4B::BLACK);
+        gameLayer->addChild(b);
+        
+        b->setPosition(i*visibleSize.width/4, lineIndex*visibleSize.height/4);
+        b->setLineIndex(lineIndex);
     }
     
     linesCount++;
@@ -104,6 +137,7 @@ void HelloWorld::addNormalLine(int lineIndex){
 
 
 void HelloWorld::moveDown(){
+    
     if (linesCount<50) {
         addNormalLine(4);
     }else if(!showEnd){
@@ -111,15 +145,50 @@ void HelloWorld::moveDown(){
         showEnd = true;
     }
     
-    for (auto it = Card::getCards()->begin(); it!=Card::getCards()->end(); it++) {
+    
+    auto bs = Block::getBlocks();
+    
+    for (auto it = bs->begin(); it!=bs->end(); it++) {
         (*it)->moveDown();
+    }
+    
+    if (currentEndLine!=NULL) {
+        
+        if (currentEndLine->getLineIndex()==1) {
+            //Game end
+            moveDown();
+            stopTimer();
+        }
     }
 }
 
 
 void HelloWorld::update(float dt){
-    log("%g",((double)clock())/1000000);
+    
+    long offset = clock()-startTime;
+    
+    timerLabel->setString( StringUtils::format("%g",((double)offset)/1000000));
 }
+
+
+void HelloWorld::startTimer(){
+    if (!timerRunning) {
+        scheduleUpdate();
+        startTime = clock();
+        
+        timerRunning = true;
+    }
+}
+
+
+void HelloWorld::stopTimer(){
+    if(timerRunning){
+        unscheduleUpdate();
+        
+        timerRunning = false;
+    }
+}
+
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
