@@ -9,7 +9,6 @@
 #ifndef __WhiteBlock__Block__
 #define __WhiteBlock__Block__
 
-#include <iostream>
 #include <cocos2d.h>
 
 USING_NS_CC;
