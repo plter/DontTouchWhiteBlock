@@ -2,8 +2,9 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-#include "Block.h"
+#include "GameBlock.h"
 #include "EndLine.h"
+#include <time.h>
 
 class EndLine;
 

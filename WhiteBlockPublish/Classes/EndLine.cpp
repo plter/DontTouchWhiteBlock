@@ -13,7 +13,7 @@ EndLine* EndLine::createWithContext(HelloWorld *context){
     el->initWithContext(context);
     el->autorelease();
     
-    Block::getBlocks()->pushBack(el);
+    GameBlock::getBlocks()->pushBack(el);
     return el;
 }
 
@@ -21,7 +21,7 @@ EndLine* EndLine::createWithContext(HelloWorld *context){
 bool EndLine::initWithContext(HelloWorld *context){
     this->context = context;
     visibleSize = Director::getInstance()->getVisibleSize();
-    Block::initWithArgs(Color3B::GREEN, visibleSize, "游戏结束", 50, Color4B::BLACK);
+    GameBlock::initWithArgs(Color3B::GREEN, visibleSize, "游戏结束", 50, Color4B::BLACK);
     
     auto label = Label::create();
     label->setString("再玩一次");

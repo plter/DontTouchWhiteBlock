@@ -27,7 +27,7 @@ bool HelloWorld::init()
         return false;
     }
     
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     
     visibleSize = Director::getInstance()->getVisibleSize();
     
@@ -46,8 +46,8 @@ bool HelloWorld::init()
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = [this](Touch* t,Event* e){
         
-        auto bs = Block::getBlocks();
-        Block *b;
+        auto bs = GameBlock::getBlocks();
+        GameBlock *b;
         
         for (auto it = bs->begin(); it!=bs->end(); it++) {
             
@@ -92,7 +92,7 @@ void HelloWorld::startGame(){
     timerLabel->setString("0.000000");
     
     //try to clear
-    Block::removeAllBlocks();
+    GameBlock::removeAllBlocks();
     
     addStartLine();
     addNormalLine(1);
@@ -102,7 +102,7 @@ void HelloWorld::startGame(){
 
 
 void HelloWorld::addStartLine(){
-    auto b = Block::createWithArgs(Color3B::YELLOW, Size(visibleSize.width, visibleSize.height/4), "", 20, Color4B::BLACK);
+    auto b = GameBlock::createWithArgs(Color3B::YELLOW, Size(visibleSize.width, visibleSize.height/4), "", 20, Color4B::BLACK);
     gameLayer->addChild(b);
     b->setLineIndex(0);
 }
@@ -121,11 +121,11 @@ void HelloWorld::addEndLine(){
 
 void HelloWorld::addNormalLine(int lineIndex){
     
-    Block *b;
+    GameBlock *b;
     int blackIndex = rand()%4;
     
     for (int i=0; i<4; i++) {
-        b = Block::createWithArgs(blackIndex==i?Color3B::BLACK:Color3B::WHITE,Size(visibleSize.width/4-1, visibleSize.height/4-1),"",20,Color4B::BLACK);
+        b = GameBlock::createWithArgs(blackIndex==i?Color3B::BLACK:Color3B::WHITE,Size(visibleSize.width/4-1, visibleSize.height/4-1),"",20,Color4B::BLACK);
         gameLayer->addChild(b);
         
         b->setPosition(i*visibleSize.width/4, lineIndex*visibleSize.height/4);
@@ -146,7 +146,7 @@ void HelloWorld::moveDown(){
     }
     
     
-    auto bs = Block::getBlocks();
+    auto bs = GameBlock::getBlocks();
     
     for (auto it = bs->begin(); it!=bs->end(); it++) {
         (*it)->moveDown();

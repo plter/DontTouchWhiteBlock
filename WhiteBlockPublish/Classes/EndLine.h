@@ -10,12 +10,12 @@
 #define __WhiteBlockPublish__EndLine__
 
 #include <iostream>
-#include "Block.h"
+#include "GameBlock.h"
 #include "HelloWorldScene.h"
 
 class HelloWorld;
 
-class EndLine:public Block {
+class EndLine:public GameBlock {
     
 private:
     Size visibleSize;
